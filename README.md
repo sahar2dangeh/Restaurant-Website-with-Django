@@ -1,6 +1,6 @@
 Django Food Website
 ---------------------
-A Django Food Website designed by Zeinab Dodangeh
+A Django Food Website designed by Sahar Dodangeh
 
 #### Run Project
 - python manage.py runserver 8080
