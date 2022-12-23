@@ -1,0 +1,32 @@
+{% load static %}
+
+<!-- Slide1 -->
+	<section class="section-slide" style="direction:ltr !important;">
+		<div class="wrap-slick1">
+			<div class="slick1">
+
+                {% for rs in sliderData %}
+				<div class="item-slick1 item1-slick1" style="background-image: url({{ rs.image.url }});">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span style="font-size: x-large" class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+							{{ rs.description }}
+						</span>
+
+						<h2 style="font-size: 48px" class="caption2-slide1 tit1 t-center animated visible-false m-b-37 m-t-15" data-appear="fadeInUp">
+							{{ rs.title }}
+						</h2>
+
+						<div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
+							<!-- Button1 -->
+							<a href="/product/{{ rs.id }}/{{ rs.slug }}" class="btn1 flex-c-m size1 txt3 trans-0-4">
+								بررسی منو
+							</a>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+
+			</div>
+			<div class="wrap-slick1-dots"></div>
+		</div>
+	</section>

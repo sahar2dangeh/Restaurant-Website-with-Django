@@ -1,0 +1,102 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ setting.title }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+    <link rel="icon" type="image/png" href="{{ setting.icon.url }}"/>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({% static 'images/bg-title-page-04.jpg' %});">
+		<h2 class="tit6 t-center">
+			ارتباط با ما
+		</h2>
+	</section>
+
+    <section class="bg2-pattern p-t-116 p-b-110 t-center p-l-15 p-r-15">
+		<span class="tit2 t-center">
+			جزییات ارتباط با ما
+		</span>
+
+		<div class="t-center size32 m-l-r-auto imageSafe" style="padding-top: 35px">
+            {{ setting.contact|safe }}
+		</div>
+	</section>
+
+    <!-- Contact form -->
+	<section class="section-contact bg1-pattern p-t-90 p-b-113">
+
+		<div class="container">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message | safe }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+			<form class="wrap-form-reservation size22 m-l-r-auto" method="post" action="">
+                <div class="row">
+                    <h4 class="t-center txt33 p-b-14" style="width: 100%">
+                        ارسال پیغام به ما
+                    </h4>
+
+                    <p class="t-center" style="width: 100%; padding-bottom: 25px">
+                        ایمیل شما منتشر نمی شود.
+                    </p>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.label != "Message" %}
+                        <div class="col-md-4">
+                            <span class="txt9">
+                                  {% if field.label == "Name" %}
+                                    نام کامل
+                                      {% elif field.label == "Email" %}
+                                        ایمیل
+                                        {% elif field.label == "Subject" %}
+                                   موضوع
+                                  {% endif %}
+                            </span>
+                            <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="col-12">
+                            <span class="txt9">
+                               پیام شما
+                            </span>
+                            {{ field }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="wrap-btn-booking flex-c-m m-t-13">
+                    <!-- Button3 -->
+                    <button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
+                        ثبت
+                    </button>
+                </div>
+			</form>
+
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

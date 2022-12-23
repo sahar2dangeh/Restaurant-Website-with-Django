@@ -1,0 +1,19 @@
+.section-slide {
+    direction:ltr !important;
+}
+body {
+    direction:rtl;
+    text-align: right !important;
+    font-family: Vazirmatn, sans-serif !important;
+    letter-spacing: 0 !important;
+word-spacing: 0 !important;
+}
+h1,h2,h3,h4,h5,h6,button,a,p,div,span {
+    font-family: Vazirmatn, sans-serif !important;    
+    letter-spacing: 0 !important;
+    word-spacing: 0 !important;
+}
+.tit1 {
+    letter-spacing: 0 !important;
+word-spacing: 0 !important;
+}

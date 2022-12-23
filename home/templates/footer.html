@@ -1,0 +1,186 @@
+{% load static %}
+
+<!-- Footer -->
+	<footer class="bg1">
+		<div class="container p-t-40 p-b-70">
+			<div class="row">
+				<div class="col-sm-6 col-md-4 p-t-50">
+					<!-- - -->
+					<h4 class="txt13 m-b-33">
+						ارتباط با ما
+					</h4>
+
+					<ul class="m-b-70">
+						<li class="txt14 m-b-14">
+							<i class="fa fa-map-marker fs-16 dis-inline-block size19" aria-hidden="true"></i>
+							{{ setting.address }}
+						</li>
+
+						<li class="txt14 m-b-14">
+							<i class="fa fa-phone fs-16 dis-inline-block size19" aria-hidden="true"></i>
+							{{ setting.phone }}
+						</li>
+
+						<li class="txt14 m-b-14">
+							<i class="fa fa-envelope fs-13 dis-inline-block size19" aria-hidden="true"></i>
+							{{ setting.email }}
+						</li>
+					</ul>
+
+					<!-- - -->
+					<h4 class="txt13 m-b-32">
+						زمان های کار
+					</h4>
+
+					<ul>
+						<li class="txt14">
+							11 ظهر تا 22 شب
+						</li>
+
+						<li class="txt14">
+							هر روز
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-md-4 p-t-50">
+					<!-- - -->
+					<h4 class="txt13 m-b-33">
+						آخرین توویت ها
+					</h4>
+
+					<div class="m-b-25">
+						<span class="fs-13 color2 m-r-5">
+							<i class="fa fa-twitter" aria-hidden="true"></i>
+						</span>
+						<a href="https://twitter.com/restauranfood">
+							@restauranfood
+						</a>
+
+						<p class="txt14 m-b-18">
+						ما خوشحالیم که رستوران های انگلستان می توانند این هفته دوباره باز شوند!
+						</p>
+
+						<span class="txt16">
+							21 مه 2021
+						</span>
+					</div>
+
+					<div>
+						<span class="fs-13 color2 m-r-5">
+							<i class="fa fa-twitter" aria-hidden="true"></i>
+						</span>
+						<a href="https://twitter.com/restauranfood">
+							@restauranfood
+						</a>
+
+						<p class="txt14 m-b-18">
+							دوستان! در طول قرنطینه، ما روی پروژه‌هایی کار می‌کردیم تا متمرکز و خلاق بمانیم. با افتتاح ما در افق، آشپزخانه آزمایشی با سرعت کامل در حال توسعه منوی جدید است.
+						</p>
+
+						<span class="txt16">
+							15 مه 2020
+						</span>
+					</div>
+				</div>
+
+                <!-- Search Box -->
+                <div class="col-sm-6 col-md-4 p-t-50" style="padding-left: 50px;">
+                    <h4 class="txt13 m-b-33">
+						جستجو
+					</h4>
+                    <ul class="m-b-25">
+                        <li class="t-center">
+                            <form action="/search/" method="POST">
+                                {% csrf_token %}
+                                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="width: 90%; margin-top: 50px;">
+                                    <div class="input-group">
+                                        {% load mptt_tags %}
+                                        <select name="catid" class="input p-1 bg-light rounded rounded-pill shadow-sm no-scroll" style="font-size: 14px;">
+                                            <option value="0" >تمامی دسته بندی ها</option>
+                                            {% recursetree category %}
+                                                {% if node.is_leaf_node %} <option value="{{ node.id }}">{{ node.title }}</option>{% endif %}
+                                                {% if not node.is_leaf_node %}
+                                                    <optgroup label="{{ node.title }}">
+                                                        {{ children }}
+                                                    </optgroup>
+                                                {% endif %}
+                                            {% endrecursetree %}
+                                        </select>
+                                        <input name="query" type="search" aria-describedby="button-addon1" class="query form-control border-0 bg-light">
+                                        <div class="input-group-append">
+                                            <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search" style="color: #ec1d25;"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+			</div>
+		</div>
+
+		<div class="end-footer bg2">
+			<div class="container">
+				<div class="flex-sb-m flex-w p-t-22 p-b-22">
+					<div class="p-t-5 p-b-5">
+						<a href="{{ setting.facebook }}" class="fs-15 c-white"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+						<a href="{{ setting.instagram }}" class="fs-15 c-white"><i class="fa fa-instagram m-l-18" aria-hidden="true"></i></a>
+						<a href="{{ setting.twitter }}" class="fs-15 c-white"><i class="fa fa-twitter m-l-18" aria-hidden="true"></i></a>
+					</div>
+
+					<div class="txt17 p-r-20 p-t-5 p-b-5">
+						تمامی حقوق متلعق به رستوران فود می باشد. | {{ setting.company }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+	</div>
+
+	<!-- Container Selection1 -->
+	<div id="dropDownSelect1"></div>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".query").autocomplete({
+                source: "/search_auto/",
+                select: function (event, ui) { //item selected
+                AutoCompleteSelectHandler(event, ui)
+            },
+                minLength: 1,
+            });
+        });
+
+        function AutoCompleteSelectHandler(event, ui)
+        {
+            var selectedObj = ui.item;
+        }
+
+    </script>
+
+
+	<script type="text/javascript" src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/slick-custom.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/parallax100/parallax100.js' %}"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+	<script type="text/javascript" src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+	<script type="text/javascript" src="{% static 'vendor/lightbox2/js/lightbox.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user.first_name }} {{ profile.user.last_name }} سفارشات {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+    <link rel="icon" type="image/png" href="{{ setting.icon.url }}"/>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({% static 'images/bg-title-page-03.jpg' %});">
+		<h2 class="tit6 t-center">
+			لیست سفارشات کاربری
+		</h2>
+	</section>
+
+    <div class="container">
+
+			<div class="row ">
+				<div class="col-md-8 col-lg-9">
+					<div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+						<div class="blo4 p-b-63">
+
+                            <table class="table">
+                                <tr>
+                                   <th class="t-left">شماره جدول</th>
+                                     <th class="t-left">مجموع</th>
+                                     <th class="t-left">وضعیت</th>
+                                     <th class="t-left">تاریخ</th>
+                                     <th class="t-left">جزئیات</th>
+                                </tr>
+                                {% for rs in orders %}
+                                    <tr>
+                                        <td class="t-left">{{ rs.table_no }}</td>
+                                        <td class="t-left">تومان{{ rs.total|floatformat:2 }}</td>
+                                        <td class="t-left">{{ rs.status }}</td>
+                                        <td class="t-left">{{ rs.create_at }}</td>
+                                        <td class="t-left">
+                                            <a href="/user/orderdetail/{{ rs.id }}" class="m-r-10">
+                                                <button type="submit" class="btn3 flex-c-m size36 txt11 trans-0-4">
+                                                    جزئیات
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
+						</div>
+					</div>
+				</div>
+
+                {% include "user_panel.html" %}
+
+			</div>
+		</div>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

@@ -1,0 +1,149 @@
+{% load static %}
+
+<!-- Welcome -->
+	<section class="section-welcome bg1-pattern p-t-120 p-b-105">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 p-t-45 p-b-30">
+					<div class="wrap-text-welcome t-center">
+						<span class="tit2 t-center">
+							رستوران فود
+						</span>
+
+						<h3 class="tit3 t-center m-b-35 m-t-5">
+							خوش آمدید
+						</h3>
+
+						<div class="t-center m-b-22 size3 m-l-r-auto imageSafe">
+                           بهترین غذا ها را با مواد اولیه به شما پیشنهاد میدهد و میتوانید از بین غذا های مختلف،غذای مورد علاقه خود را سفارش دهید.
+						</div>
+
+						<a href="/aboutus" class="txt4">
+							داستان ما
+							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-md-6 p-b-30">
+					<div style="height: 350px;" class="wrap-pic-welcome size2 bo-rad-10 m-r-auto introwelcomeImage imageSafe">
+						<img height="350" src="{% static 'images/our-story-01.jpg' %}" alt="IMG-OUR">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <section class="section-intro">
+
+		<div class="content-intro bg-white p-t-77 p-b-133">
+			<div class="container">
+				<div class="row">
+
+                    <span class="tit2 t-center" style="width: 100%; padding-bottom: 50px;">
+                        مورد علاقه ما
+                    </span>
+
+                    {% for rs in ourFavorites %}
+					<div class="col-md-4 p-t-30">
+						<!-- Block1 -->
+						<div class="blo1">
+							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom" style="height: 350px">
+								<a href="/product/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="IMG-INTRO"></a>
+							</div>
+
+							<div class="wrap-text-blo1 p-t-35">
+								<a href="/product/{{ rs.id }}/{{ rs.slug }}">
+                                    <h4 class="txt5 color0-hov trans-0-4 m-b-13">
+									{{ rs.title }}
+								    </h4>
+                                </a>
+
+								<p class="m-b-20" style="word-wrap: break-word; width: 100%; text-align: left;">
+									{{ rs.description }}
+								</p>
+
+                                <p class="m-b-20" style="word-wrap: break-word; width: 100%; text-align: left;">
+									قیمت: تومان {{ rs.price }}<span class="m-r-6 m-l-4">|</span> Rate:
+                                    <i class="fa fa-star{% if rs.avaragecomment < 1 %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs.avaragecomment < 2  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs.avaragecomment < 3  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs.avaragecomment < 4  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs.avaragecomment < 5  %}-o empty{% endif %}"></i>
+								</p>
+
+								<a href="/product/{{ rs.id }}/{{ rs.slug }}" class="txt4">
+									کسب اطلاعات و سفارش
+									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+
+				</div>
+			</div>
+        </div>
+
+        <div class="header-intro parallax100 t-center p-t-135 p-b-158" style="background-image: url({% static 'images/bg-intro-01.jpg' %});">
+			<span class="tit2 p-l-15 p-r-15">
+				طراحی شده توسط 
+			</span>
+
+			<h3 class="tit4 t-center p-l-15 p-r-15 p-t-3">
+				{{ setting.company }}
+			</h3>
+		</div>
+
+        <div class="content-intro bg-white p-t-77 p-b-133">
+            <div class="container">
+                <div class="row">
+
+                    <span class="tit2 t-center" style="width: 100%; padding-bottom: 50px;">
+                        آخرین غذاهای خوشمزه ما
+                    </span>
+
+                    {% for rs2 in ourLatestDeliciousFoods %}
+                    <div class="col-md-4 p-t-30">
+                        <!-- Block1 -->
+                        <div class="blo1">
+                            <div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom" style="height: 350px">
+                                <a href="/product/{{ rs2.id }}/{{ rs2.slug }}"><img src="{{ rs2.image.url }}" alt="IMG-INTRO"></a>
+                            </div>
+
+                            <div class="wrap-text-blo1 p-t-35">
+                                <a href="/product/{{ rs2.id }}/{{ rs2.slug }}">
+                                    <h4 class="txt5 color0-hov trans-0-4 m-b-13">
+                                        {{ rs2.title }}
+                                    </h4>
+                                </a>
+
+                                <p class="m-b-20" style="word-wrap: break-word; width: 100%; text-align: left;">
+                                    {{ rs2.description }}
+                                </p>
+
+                                <p class="m-b-20" style="word-wrap: break-word; width: 100%; text-align: left;">
+                                    قیمت:  تومان{{ rs2.price }}<span class="m-r-6 m-l-4">|</span> امتیاز:
+                                    <i class="fa fa-star{% if rs2.avaragecomment < 1 %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs2.avaragecomment < 2  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs2.avaragecomment < 3  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs2.avaragecomment < 4  %}-o empty{% endif %}"></i>
+                                    <i class="fa fa-star{% if rs2.avaragecomment < 5  %}-o empty{% endif %}"></i>
+                                </p>
+
+                                <a href="/product/{{ rs2.id }}/{{ rs2.slug }}" class="txt4">
+                                    کسب اطلاعات و سفارش
+                                    <i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+	</section>
+
+

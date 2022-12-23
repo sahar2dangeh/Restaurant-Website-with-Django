@@ -1,0 +1,91 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user.first_name }} {{ profile.user.last_name }} نظرات {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+    <link rel="icon" type="image/png" href="{{ setting.icon.url }}"/>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({% static 'images/bg-title-page-03.jpg' %});">
+		<h2 class="tit6 t-center">
+		نظرات کاربری
+		</h2>
+	</section>
+
+    <div class="container">
+
+			<div class="row ">
+				<div class="col-md-8 col-lg-9">
+					<div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+						<div class="blo4 p-b-63">
+
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}" role="alert">
+                                        {{ message | safe }}
+                                    </div>
+                                    <div class="p-b-10"></div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <table class="table">
+                                <tr>
+                                 <th class="t-left">موضوع</th>
+                                     <th class="t-left">نظر</th>
+                                     <th class="t-left">نرخ</th>
+                                     <th class="t-left">محصول</th>
+                                     <th class="t-left">وضعیت</th>
+                                     <th class="t-left">تاریخ</th>
+                                     <th class="t-left">حذف</th>
+                                </tr>
+                                {% for rs in comments %}
+                                    <tr>
+                                        <td class="t-left">{{ rs.subject }}</td>
+                                        <td class="t-left">{{ rs.comment }}</td>
+                                        <td class="t-left">{{ rs.rate }}/5</td>
+                                        <td class="t-left">
+                                            <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}" class="m-r-10">
+                                                {{ rs.product }}
+                                            </a>
+                                        </td>
+                                        <td class="t-left">{{ rs.status }}</td>
+                                        <td class="t-left">{{ rs.create_at }}</td>
+                                        <td class="t-left">
+                                            <a href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('You are deleting your comment! Are you sure?')" class="m-r-10">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
+						</div>
+					</div>
+				</div>
+
+                {% include "user_panel.html" %}
+
+			</div>
+		</div>
+
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

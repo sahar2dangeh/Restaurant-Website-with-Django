@@ -1,0 +1,39 @@
+<div class="col-md-4 col-lg-3">
+    <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+        <div class="categories">
+            <h4 class="txt33 bo5-b p-b-35">
+               پنل کاربری
+            </h4>
+            <ul>
+                {% if user.is_superuser %}
+                    <li class="bo5-b p-t-8 p-b-8">
+                        <a href="/admin" class="txt27">
+                          پنل مدیریت
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="bo5-b p-t-8 p-b-8">
+                    <a href="/user" class="txt27">
+                   مشخصات کاربر
+                    </a>
+                </li>
+                <li class="bo5-b p-t-8 p-b-8">
+                    <a href="/user/orders" class="txt27">
+                       سفارشات من
+                    </a>
+                </li>
+                <li class="bo5-b p-t-8 p-b-8">
+                    <a href="/user/comments" class="txt27">
+                        نظرات من
+                    </a>
+                </li>
+                <li class="bo5-b p-t-8 p-b-8">
+                    <a href="/logout" class="txt27">
+                        خروج
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

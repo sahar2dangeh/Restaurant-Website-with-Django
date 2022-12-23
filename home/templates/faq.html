@@ -1,0 +1,74 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ setting.title }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+
+{% block head %}
+    <link rel="icon" type="image/png" href="{{ setting.icon.url }}"/>
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({% static 'images/bg-title-page-03.jpg' %});">
+		<h2 class="tit6 t-center">
+			FAQ(سوال و جواب های پرتکرار)
+		</h2>
+	</section>
+
+	<section class="bg2-pattern p-t-116 p-b-110 t-center p-l-15 p-r-15">
+		<span class="tit2 t-center">
+			سوالات متدوال
+		</span>
+
+		<div class="t-center size32 m-l-r-auto m-t-50 accordion" id="accordionFaq" style="padding-top: 35px">
+                {% for rs in faq %}
+                    {% if rs == faq.all|first %}
+                        <div class="card">
+                            <div class="card-header" style="background-color: #212529;" id="heading{{ rs.ordernumber }}">
+                                <h2 class="mb-0">
+                                    <button style="color: white;" class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{ rs.ordernumber }}" aria-expanded="true" aria-controls="collapse{{ rs.ordernumber }}">
+                                        {{ rs.question }}
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse{{ rs.ordernumber }}" class="collapse show" aria-labelledby="heading{{ rs.ordernumber }}" data-parent="#accordionFaq">
+                                <div class="card-body">
+                                    {{ rs.answer }}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card">
+                            <div class="card-header" style="background-color: #212529;" id="heading{{ rs.ordernumber }}">
+                                <h2 class="mb-0">
+                                    <button style="color: white;" class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{ rs.ordernumber }}" aria-expanded="true" aria-controls="collapse{{ rs.ordernumber }}">
+                                        {{ rs.question }}
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse{{ rs.ordernumber }}" class="collapse" aria-labelledby="heading{{ rs.ordernumber }}" data-parent="#accordionFaq">
+                                <div class="card-body">
+                                    {{ rs.answer }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

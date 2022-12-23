@@ -1,0 +1,60 @@
+{% load static %}
+
+<!-- Header -->
+<header>
+    <!-- Header desktop -->
+    <div class="wrap-menu-header gradient1 trans-0-4">
+        <div class="container h-full">
+            <div class="wrap_header trans-0-3">
+                <!-- Logo -->
+                <div class="logo">
+                    <a style="font-size:30px;" href="/">
+                       رستوران فود
+                    </a>
+                </div>
+                <!-- Menu -->
+                <div class="wrap_menu p-l-45 p-l-0-xl">
+                    <nav class="menu">
+                        <ul class="main_menu">
+                            <li><a href="/">خانه</a></li>
+                            <li><a href="/aboutus">درباره ما</a></li>
+                            <li><a href="/references">ارجاع</a></li>
+                            <li><a href="/contact">ارتباط با ما</a></li>
+                            <li><a href="/faq">سوالات متدوال</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Social -->
+                <div class="social flex-w flex-l-m p-r-20">
+                    <div class="dropdown">
+                        {% if user.id is not None %}
+                            <img class="rounded-circle" height="48" src="{{ profile.image.url }}"/>
+                            <button class="user-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ user.first_name }}
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% if user.is_superuser %}
+                                <a class="dropdown-item" href="/admin"><span class="user-button-dropdown-items">پنل مدیریت</span></a>
+                                {% endif %}
+                                <a class="dropdown-item" href="/user"><span class="user-button-dropdown-items">پروفایل کاربری</span></a>
+                                <a class="dropdown-item" href="/user/orders"><span class="user-button-dropdown-items">سفارشات من</span></a>
+                                <a class="dropdown-item" href="/user/comments"><span class="user-button-dropdown-items">تظرات من</span></a>
+                                <a class="dropdown-item" href="/logout"><span class="user-button-dropdown-items">خروج از سیستم</span></a>
+                            </div>
+                        {% else %}
+                            <button class="user-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ورود به سیستم
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/login"><span class="user-button-dropdown-items">ورود</span></a>
+                                <a class="dropdown-item" href="/signup"><span class="user-button-dropdown-items">ایجاد حساب کاربری</span></a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <button class="menu-button m-l-33 trans-0-4"><span>منو</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

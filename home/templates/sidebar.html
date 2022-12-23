@@ -1,0 +1,82 @@
+<!-- Sidebar -->
+<aside class="sidebar trans-0-4">
+    <!-- Button Hide sidebar -->
+    <button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+
+    <!-- Menu Label -->
+    <h2 class="t-center nav flex-column flex-nowrap overflow-hidden" style="margin-top: 50px; padding-bottom: 50px;">منو</h2>
+
+    <!-- Main Menu -->
+    <ul class="nav flex-column flex-nowrap overflow-hidden hide-menu" style="padding-top: 10px;">
+        <li class="t-center m-b-13 nav-item" style="text-transform: uppercase;">
+            <a href="/">خانه</a>
+        </li>
+
+        <li class="t-center m-b-13 nav-item" style="text-transform: uppercase;">
+            <a href="/aboutus">درباره ما</a>
+        </li>
+
+        <li class="t-center m-b-13 nav-item" style="text-transform: uppercase;">
+            <a href="/references">ارجاع</a>
+        </li>
+
+        <li class="t-center m-b-13 nav-item" style="text-transform: uppercase;">
+            <a href="/contact">ارتباط با ما</a>
+        </li>
+
+        <li class="t-center m-b-13 nav-item" style="text-transform: uppercase;">
+            <a href="/faq">سوالات متداول</a>
+        </li>
+
+        <hr style="margin-top: 50px">
+    </ul>
+
+    <!-- Categories -->
+    {% load mptt_tags %}
+    <ul class="p-b-70 nav flex-column flex-nowrap overflow-hidden">
+        {% recursetree category %}
+            <li class="t-center nav-item" style="text-transform: uppercase;">
+                <a class="nav-link collapsed" {% if not node.is_leaf_node %} href="#" data-toggle="collapse" style="color: #ec1d25;" data-target="#{{ node.id }}" {% else %} href="/category/{{ node.id }}/{{ node.slug }}" {% endif %}>
+                    <span>{{ node.title }}</span>
+                </a>
+            </li>
+            {% if not node.is_leaf_node %}
+                <ul class="collapse" id="{{ node.id }}" aria-expanded="false">
+                    <li style="text-transform: uppercase;" class="t-center nav-item">
+                        <a href="/category{{ node.id }}//{{ node.slug }}">
+                            <span>{{ children }}</span>
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+        {% endrecursetree %}
+
+        <!-- Search Box -->
+        <li class="t-center">
+            <form action="/search/" method="POST">
+                {% csrf_token %}
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="width: 80%; margin-left:auto; margin-right: auto; margin-top: 50px;">
+                    <div class="input-group">
+                        {% load mptt_tags %}
+                        <select name="catid" class="input p-1 bg-light rounded rounded-pill shadow-sm no-scroll" style="font-size: 14px;">
+                            <option value="0" >تمامی دسته بندی ها</option>
+                            {% recursetree category %}
+                                {% if node.is_leaf_node %} <option value="{{ node.id }}">{{ node.title }}</option>{% endif %}
+                                {% if not node.is_leaf_node %}
+                                    <optgroup label="{{ node.title }}">
+                                        {{ children }}
+                                    </optgroup>
+                                {% endif %}
+                            {% endrecursetree %}
+                        </select>
+                        <input name="query" type="search" aria-describedby="button-addon2" class="query form-control border-0 bg-light">
+                        <div class="input-group-append">
+                            <button id="button-addon2" type="submit" class="btn btn-link text-primary"><i class="fa fa-search" style="color: #ec1d25;"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </li>
+    </ul>
+
+</aside>
